@@ -3,10 +3,10 @@ import "./Home.css"
 import Sidebar from '../../Components/Sidebar/Sidebar'
 
 
-export const Home = () => {
+export const Home = ({sidebar}) => {
   return (
     <>
-      <Sidebar/>
+      <Sidebar sidebar={sidebar}/>
     </>
   )
 }
