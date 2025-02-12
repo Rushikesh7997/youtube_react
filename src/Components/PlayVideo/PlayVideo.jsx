@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import "./PlayVideo.css"
 import video1 from "../../assets/video.mp4"
 import like from "../../assets/like.png"
@@ -7,17 +7,33 @@ import share from "../../assets/share.png"
 import save from "../../assets/save.png"
 import jack from "../../assets/jack.png"
 import user_profile from "../../assets/user_profile.jpg"
+import { API_KEY, value_converter } from '../../data'
+import moment from 'moment'
 
-export const PlayVideo = () => {
+export const PlayVideo = ({videoId}) => {
+
+  const [apiData, setApiData] = useState(null);
+
+  const fetch_Data = async() =>{
+    const videoDetails_url = `https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&id=${videoId}&key=${API_KEY}`
+    await fetch(videoDetails_url)
+    .then(res=>res.json())
+    .then(data=>setApiData(data.items[0]))
+  }
+
+  useEffect(()=>{
+    fetch_Data()
+  },[])
+  
   return (
     <div className='play-video'>
-        <video src={video1} controls autoPlay muted></video>
-        <h3>Video Title</h3>
+        <iframe src={`https://www.youtube.com/embed/${videoId}?autoplay=1`} frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen></iframe>
+        <h3>{apiData?apiData.snippet.title:"Title Here"}</h3>
         <div className="play-video-info">
-          <p>1525 Views &bull; 2 days ago</p>
+          <p>{apiData? value_converter(apiData.statistics.viewCount):"No Views"} Views &bull; {apiData?moment(apiData.snippet.publishedAt).fromNow():""}</p>
           <div>
-            <span><img src={like} alt="" />125</span>
-            <span><img src={dislike} alt="" />2</span>
+            <span><img src={like} alt="" />{apiData?value_converter(apiData.statistics.likeCount):155}</span>
+            <span><img src={dislike} alt="" />{apiData?apiData.statistics.dislikeCount:""}</span>
             <span><img src={share} alt="" />Share</span>
             <span><img src={save} alt="" />Save</span>
           </div>
@@ -41,7 +57,7 @@ export const PlayVideo = () => {
             <div>
               <h3>Jack Nicolson <span>1 Day Ago</span></h3>
               <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis dolor earum accusamus quisquam totam neque ducimus ratione commodi dignissimos, dolorum, doloribus eveniet quae nostrum et a omnis error dicta voluptate!</p>
-              <div className="comment-section">
+              <div className="comment-action">
                 <img src={like} alt="" />
                 <span>244</span>
                 <img src={dislike} alt="" />
@@ -53,7 +69,7 @@ export const PlayVideo = () => {
             <div>
               <h3>Jack Nicolson <span>1 Day Ago</span></h3>
               <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis dolor earum accusamus quisquam totam neque ducimus ratione commodi dignissimos, dolorum, doloribus eveniet quae nostrum et a omnis error dicta voluptate!</p>
-              <div className="comment-section">
+              <div className="comment-action">
                 <img src={like} alt="" />
                 <span>244</span>
                 <img src={dislike} alt="" />
@@ -65,7 +81,7 @@ export const PlayVideo = () => {
             <div>
               <h3>Jack Nicolson <span>1 Day Ago</span></h3>
               <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis dolor earum accusamus quisquam totam neque ducimus ratione commodi dignissimos, dolorum, doloribus eveniet quae nostrum et a omnis error dicta voluptate!</p>
-              <div className="comment-section">
+              <div className="comment-action">
                 <img src={like} alt="" />
                 <span>244</span>
                 <img src={dislike} alt="" />
