@@ -21,3 +21,8 @@
 .vid-info p{
     font-size: 13px;
 }
+@media (max-width:900px) {
+    .recommended{
+        flex-basis: 100%;
+    }
+}
