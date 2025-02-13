@@ -65,13 +65,13 @@ Welcome to the **MyTube** YouTube Clone project! This is a React-based web appli
 
 ### Screenshots
 1. Homepage
-<img src="">
+<img src="![homepage](https://github.com/Rushikesh7997/youtube_react/blob/master/src/assets/mytube-homepage-1.PNG)">
 
 2. Video Feed Page
-<img src="">
+<img src="![Video feed](https://github.com/Rushikesh7997/youtube_react/blob/master/src/assets/mytube-video-feed-2.PNG)">
 
 3. Responsive Design
-<img src="">
+<img src="![alt text](https://github.com/Rushikesh7997/youtube_react/blob/master/src/assets/mytube-video-feed-mobile-view-3.PNG)">
 
 
 ### License
